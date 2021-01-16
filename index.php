@@ -5,17 +5,17 @@ ini_set('display_errors',0);
 if(isset($_POST["btn_zip"]))  //If there is input of zip file
  {  
       $displayedimages = NULL; //to be used to display images 
-      if(!empty($_FILES['zip_file']['name']))  
+      if(!empty($_FILES['zip_file']['name']))  //if the file is exist
       {  
            $file_name = $_FILES['zip_file']['name'];  
            $array = explode(".", $file_name);  
            $name = $array[0];  
            $ext = $array[1];  
-           if($ext == 'zip')  
+           if($ext == 'zip')  //if the file extension is zip file, then it will proceed else an error will be shown.
            { 
                 if(is_dir("upload")===false)
                 {
-                    mkdir("upload");
+                    mkdir("upload"); // if upload folder is not exist, it will create one
                 }
                 $path = 'upload/';  
                 $location = $path . $file_name;  
@@ -24,7 +24,7 @@ if(isset($_POST["btn_zip"]))  //If there is input of zip file
                      $zip = new ZipArchive;  
                      if($zip->open($location))  
                      {  
-                          $zip->extractTo($path);  
+                          $zip->extractTo($path);  //The zip file is extracted to upload folder
                           $zip->close();  
                      }  
                      $files = scandir($path . $name);  
@@ -36,7 +36,7 @@ if(isset($_POST["btn_zip"]))  //If there is input of zip file
                           $allowed_ext = ['jpeg','jpg','png']; 
                           if(in_array($file_ext, $allowed_ext))  
                           {  
-                               $new_name = md5(rand()).'.' . $file_ext;  
+                               $new_name = md5(rand()).'.' . $file_ext; //name the photos with random number to avoid clashes 
                                $displayedimages .= '<div class="col-md-6"><div style="padding:16px; border:1px solid #CCC;"><img src="upload/'.$new_name.'" width="300" height="240" /></div></div>';  
                                copy($path.$name.'/'.$file, $path . $new_name);  
                                unlink($path.$name.'/'.$file);  
