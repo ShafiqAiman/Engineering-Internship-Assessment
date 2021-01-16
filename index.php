@@ -37,7 +37,7 @@ if(isset($_POST["btn_zip"]))  //If there is input of zip file
                           if(in_array($file_ext, $allowed_ext))  
                           {  
                                $new_name = md5(rand()).'.' . $file_ext; //name the photos with random number to avoid clashes 
-                               $displayedimages .= '<div class="col-md-6"><div style="padding:16px; border:1px solid #CCC;"><img src="upload/'.$new_name.'" width="300" height="240" /></div></div>';  
+                               $displayedimages .= '<div class="col-md-6"><div style="padding:16px; border:1px solid yellow;"><img src="upload/'.$new_name.'"class= "center" width="300" height="240" /></div></div>';  
                                copy($path.$name.'/'.$file, $path . $new_name);  
                                unlink($path.$name.'/'.$file);  
                           }       
